@@ -1,0 +1,58 @@
+
+                             Computer Systems
+                                 Project 4
+                                 Fall 2019
+
+
+turnin code:  cs_p4
+
+
+Write a program that forks one process.  Have the new process execve the
+program named /usr/bin/sort.  Use dup/dup2 and a pipe to establish a way
+for the original process to pass stdin to sort.  The sort program will
+simply print to stdout.
+
+
+Be sure to have this as the first executable line in *BOTH* processes:
+
+    alarm(60)
+
+
+Be sure to pass LC_ALL with value  C  for sort's environment:
+
+    LC_ALL   C    // sort "traditional" way
+
+(en_US.UTF-8 would sort same as cmd-line, which we do NOT want.)
+
+
+The original process should read lines of input from a file named as the
+first command-line arg.  Discard any lines that contain the word foobar
+in lower-case.  All other lines should be passed to sort via the pipe.
+
+Command-line args after the filename should be handed to sort as if they
+were entered on its command-line; there will not be more than 3.
+
+I will run tests by typing commands like this:
+
+    ./p4 infilename1
+    ./p4 infilename2 -n     # -n will be passed as arg to sort
+    ./p4 infilename2 -n -r  # -n and -r will be passed as args to sort
+
+
+As in prior projects, if the program is run with a single command-line arg
+of  -hw  then it should simply  print hello world   and then  exit(0)
+
+
+TURNIN info:
+    You should submit a tar file of a directory which contains all of the
+    required files (makefile, C source files, header files, etc).
+    Sample tar command to create a tar file from a dir named p4dir:
+	tar cvf p4.tar ./p4dir  ## do *NOT* use full pathname of the dir
+    After un-tarring your project, I will cd to the dir containing
+    it and type:
+        rm -rf p4
+        rm -f *.o
+        make
+    It should build an executable named p4 as described above.
+    Sample un-tar, build, and simple execution will be provided in the script
+    p4testfiles/PREP.py which must execute correctly to be graded further.
